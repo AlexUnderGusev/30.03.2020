@@ -1,0 +1,28 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+typename A::size_type Levenstein(const A &source,const A &target) {
+    if (source.size() > target.size()) {
+        return Levenshtein(target, source);
+    }
+    using ASizeType =typename A::size_type;
+    const ASizeType min_size =source.size(), max_size =target.size();
+    std::vector<ASizeType> lev_dist(min_size +1);
+    for (ASizeType i=0; i<=min_size; ++i) {
+        lev_dist[i] =i;
+    }
+    for (ASizeType j=1; j<=max_size; ++j) {
+        ASizeType previous =lev_dist[0], previous_save;
+        ++lev_dist[0];
+        for (ASizeType i=1; i<=min_size; ++i) {
+            previous_save =lev_dist[i];
+            if (source[i-1] ==target[j-1]) {
+                lev_dist[i] =previous;
+            } else {
+                lev_dist[i] =std::min(std::min(lev_dist[i-1], lev_dist[i]), previous) +1;
+            }
+            previous =previous_save;
+        }
+    }
+    return lev_dist[min_size];
+}

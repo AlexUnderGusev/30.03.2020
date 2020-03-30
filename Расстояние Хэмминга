@@ -1,0 +1,19 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+using namespace std;
+int main() {
+	string first, second;
+	getline(cin, first);
+	getline(cin, second);
+	if (first.length()!=second.length()) 
+	{
+		cout <<"NO";
+		return 0;
+	}
+	int count=0;
+	for (int a=0; a <int(first.length()); ++a)
+	if (first[a]!=second[a]) ++count;
+	cout <<count;
+	return 0;
+}
